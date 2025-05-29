@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPI Fraud Detection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            display: flex;
+            width: 80%;
+            max-width: 900px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .form-container {
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .image-container {
+            flex: 1;
+            background: url('https://inc42.com/cdn-cgi/image/quality=75/https://asset.inc42.com/2024/11/UPI-frauds-featured-760x570.png') no-repeat center center/cover;
+        }
+        h2 {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        button {
+            background: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        button:hover {
+            background: #218838;
+        }
+        .result {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Left Form Section -->
+        <div class="form-container">
+            <h2>🔍 UPI Fraud Detection</h2>
+            <form method="post">
+                <input type="text" name="transaction_id" placeholder="Transaction ID" required>
+                <input type="text" name="sender" placeholder="Sender Name" required>
+                <input type="text" name="receiver" placeholder="Receiver Name" required>
+                <input type="text" name="upi_id" placeholder="UPI ID" required>
+                <input type="number" name="amount" placeholder="Transaction Amount" step="0.01" required>
+                
+                <select name="status">
+                    <option value="Success">Success</option>
+                    <option value="Failed">Failed</option>
+                    <option value="Pending">Pending</option>
+                </select>
+
+                <select name="category">
+                    {% for cat in categories %}
+                    <option value="{{ cat }}">{{ cat }}</option>
+                    {% endfor %}
+                </select>
+
+                <button type="submit">Check Fraud</button>
+            </form>
+
+            {% if result %}
+                <p class="result">{{ result }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Right Image Section -->
+        <div class="image-container"></div>
+    </div>
+
+</body>
+</html>
